@@ -1,6 +1,7 @@
 package com.questpirates.greathomesfurniture.bottomNavFrags;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class CartFragment extends Fragment {
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         View view = inflater.inflate(R.layout.fragment_cart, null);
 
+        Log.d("ACT", "onCreateView: IN AR ACTIVITY");
 
 
         return view;

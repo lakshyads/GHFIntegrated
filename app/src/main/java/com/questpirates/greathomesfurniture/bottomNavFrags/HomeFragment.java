@@ -1,5 +1,9 @@
 package com.questpirates.greathomesfurniture.bottomNavFrags;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,13 +18,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.questpirates.greathomesfurniture.Adapters.HomeRecyclerAdapter;
 import com.questpirates.greathomesfurniture.Adapters.ImageLabelRecyclerAdapter;
+import com.questpirates.greathomesfurniture.MainActivity;
 import com.questpirates.greathomesfurniture.R;
 import com.questpirates.greathomesfurniture.dataBlock.SomeData;
+import com.questpirates.greathomesfurniture.myServices.SocketService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +53,8 @@ public class HomeFragment extends Fragment {
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         View view = inflater.inflate(R.layout.fragment_home, null);
 
+
+
         tvall = view.findViewById(R.id.txtall);
         tvall.setTextColor(Color.parseColor("#000000"));
         tvchairs = view.findViewById(R.id.txtchairs);
@@ -60,6 +69,11 @@ public class HomeFragment extends Fragment {
         //Initially Load all Data
         popHomeRecycle(new SomeData().Allproducts, view);
 
+        MainActivity mm = (MainActivity)getActivity();
+        String val = mm.getItemValue();
+        if(!val.equalsIgnoreCase("")){
+            changeTabs(view,val);
+        }
 
         return view;
     }
@@ -80,9 +94,7 @@ public class HomeFragment extends Fragment {
         tvchairs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAllTxtViewGray();
-                popHomeRecycle(new SomeData().Chairproducts, view);
-                tvchairs.setTextColor(Color.parseColor("#000000"));
+            changeTabs(view,"chairs");
             }
         });
         tvcouch.setOnClickListener(new View.OnClickListener() {
@@ -112,17 +124,13 @@ public class HomeFragment extends Fragment {
         tvtables.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAllTxtViewGray();
-                popHomeRecycle(new SomeData().Tableproducts, view);
-                tvtables.setTextColor(Color.parseColor("#000000"));
+              changeTabs(view,"tables");
             }
         });
         tvdesks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAllTxtViewGray();
-                popHomeRecycle(new SomeData().Deskproducts, view);
-                tvdesks.setTextColor(Color.parseColor("#000000"));
+                changeTabs(view,"desks");
             }
         });
     }
@@ -137,6 +145,25 @@ public class HomeFragment extends Fragment {
         tvothers.setTextColor(Color.parseColor("#D5D1D1"));
     }
 
+    public void changeTabs(View view, String tabName){
+        switch (tabName.toLowerCase()){
+            case "chairs":
+                setAllTxtViewGray();
+                popHomeRecycle(new SomeData().Chairproducts, view);
+                tvchairs.setTextColor(Color.parseColor("#000000"));
+                break;
+            case "desks" :
+                setAllTxtViewGray();
+                popHomeRecycle(new SomeData().Deskproducts, view);
+                tvdesks.setTextColor(Color.parseColor("#000000"));
+                break;
+            case "tables" :
+                setAllTxtViewGray();
+                popHomeRecycle(new SomeData().Tableproducts, view);
+                tvtables.setTextColor(Color.parseColor("#000000"));
+        }
+    }
+
     public void popHomeRecycle(Map<String, Integer> data, View v) {
 
 
@@ -149,4 +176,5 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
     }
+
 }

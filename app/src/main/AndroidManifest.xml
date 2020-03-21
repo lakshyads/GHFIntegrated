@@ -37,6 +37,8 @@
             android:name=".MainActivity"
             android:label="@string/app_name" />
 
+        <receiver android:name=".ServiceBroadcaseReceiver"/>
+
         <service android:name=".myServices.SocketService"/>
         <meta-data
             android:name="com.google.ar.core"

@@ -3,6 +3,7 @@ package com.questpirates.greathomesfurniture;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.questpirates.greathomesfurniture.bottomNavFrags.AssistantFragment;
 import com.questpirates.greathomesfurniture.bottomNavFrags.CartFragment;
 import com.questpirates.greathomesfurniture.bottomNavFrags.HomeFragment;
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     private Toolbar mToolbar;
     Fragment f;
+    public static String ITEM_NAME = "";
+    private static boolean SERVICE_FLAG = true;
 
     public static FragmentManager fragmentManager;
 
@@ -91,9 +96,30 @@ public class MainActivity extends AppCompatActivity {
             checkAndRequestPermissions();
         }
 
-
-        loadFragment(new HomeFragment());
-
+        if(!(getIntent().getStringExtra("fragment") == null)) {
+            String z = getIntent().getStringExtra("fragment");
+            switch(z.toLowerCase()) {
+                case "cart" : loadFragment(new CartFragment());
+                break;
+                case "profile" : loadFragment(new ProfileFragment());
+                    break;
+                case "chat" : loadFragment(new AssistantFragment());
+                    break;
+                case "home" : loadFragment(new HomeFragment());
+                    break;
+                case "homechairs" : loadFragment(new HomeFragment());
+                    setItemValue("chairs");
+                    break;
+                case "homedesks" : loadFragment(new HomeFragment());
+                    setItemValue("desks");
+                    break;
+                case "hometables" : loadFragment(new HomeFragment());
+                    setItemValue("tables");
+                    break;
+            }
+        }else{
+            loadFragment(new HomeFragment());
+        }
         // Inflate your custom layout
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
@@ -114,7 +140,11 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(null);
 
-        startService(new Intent(MainActivity.this, SocketService.class));
+        if(SERVICE_FLAG){
+            startService(new Intent(MainActivity.this, SocketService.class));
+            SERVICE_FLAG = false;
+        }
+
 
 
     }
@@ -271,5 +301,51 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         stopService(new Intent(MainActivity.this, SocketService.class));
+    }
+
+    private void dosomething(Intent i){
+        String val = i.getStringExtra("fragment");
+        switch (val){
+            case "cart" : loadFragment(new CartFragment());
+                break;
+            case "profile" : loadFragment(new ProfileFragment());
+                break;
+            case "chat" : loadFragment(new AssistantFragment());
+                break;
+            case "home" : loadFragment(new HomeFragment());
+                break;
+            case "homechairs" : loadFragment(new HomeFragment());
+                setItemValue("chairs");
+                break;
+            case "homedesks" : loadFragment(new HomeFragment());
+                setItemValue("desks");
+                break;
+            case "hometables" : loadFragment(new HomeFragment());
+                setItemValue("tables");
+                break;
+        }
+    }
+
+    public void setItemValue(String chairs) {
+        ITEM_NAME = chairs;
+    }
+
+    public String getItemValue() {
+        return ITEM_NAME;
+    }
+
+    private BroadcastReceiver broadcastReceiverM= new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            dosomething(intent);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAIN));
+        registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAINCHAIRS));
+        registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAINDESKS));
     }
 }

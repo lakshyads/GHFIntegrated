@@ -1,5 +1,9 @@
 package com.questpirates.greathomesfurniture;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +30,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.questpirates.greathomesfurniture.myServices.SocketService;
 import com.questpirates.greathomesfurniture.utils.SocketInstance;
 //import com.questpirates.greathomesfurniture.utils.SocketInstance;
 
@@ -179,39 +184,45 @@ public class ARMainActivity extends AppCompatActivity {
         return renderableCopy;
     }
 
-    private void changeColorEvent(String colorString) {
+    public void changeColorEvent(String colorString) {
         if (isAnchor) {
-            Color c = new Color(getResources().getColor(R.color.ARGRAY));
+            Color c = new Color(android.graphics.Color.GRAY);
             switch (colorString.toUpperCase()) {
                 case "BLUE":
-                    c = new Color(getResources().getColor(R.color.ARBLUE));
+                    c = new Color(android.graphics.Color.BLUE);
                     break;
                 case "BLACK":
-                    c = new Color(getResources().getColor(R.color.ARBLACK));
+                    c = new Color(android.graphics.Color.BLACK);
                     break;
                 case "GREEN":
-                    c = new Color(getResources().getColor(R.color.ARGREEN));
+                    c = new Color(android.graphics.Color.GREEN);
                     break;
                 case "GRAY":
-                    c = new Color(getResources().getColor(R.color.ARGRAY));
+                    c = new Color(android.graphics.Color.GRAY);
                     break;
                 case "RED":
-                    c = new Color(getResources().getColor(R.color.ARRED));
+                    c = new Color(android.graphics.Color.RED);
                     break;
                 case "WHITE":
-                    c = new Color(getResources().getColor(R.color.ARWHITE));
+                    c = new Color(android.graphics.Color.WHITE);
                     break;
                 case "BROWN":
-                    c = new Color(getResources().getColor(R.color.ARBROWN));
+                    c = new Color(android.graphics.Color.rgb(210,105,30));
                     break;
                 default:
             }
-//            Color color = android.graphics.Color.parseColor(R.color.GRAY);
-//            Color color = new Color(R.color.);
+            Log.d("changeColorEvent","IN");
             removeNodesFromScene(fragment, anchor);
             // placeObject(fragment, anchor, selectedObject, new Color(android.graphics.Color.argb(1, 137, 196, 244)));
             placeObject(fragment, anchor, selectedObject, c);
         }
+
+
+    }
+
+    public void switchh(Intent intent){
+    String c = intent.getStringExtra("color");
+        changeColorEvent(c);
     }
 
    /* // Listener for socket event - socketListener
@@ -261,4 +272,16 @@ public class ARMainActivity extends AppCompatActivity {
         }
     };*/
 
+    private BroadcastReceiver broadcastReceiver= new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switchh(intent);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, new IntentFilter(SocketService.BROADCAST_COLOR));
+    }
 }
