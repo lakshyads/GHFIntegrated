@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "376795829701",
+    "firebase_url": "https://greathomesfurnituredemo.firebaseio.com",
+    "project_id": "greathomesfurnituredemo",
+    "storage_bucket": "greathomesfurnituredemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376795829701:android:34ff8b57b5e965f93d27ac",
+        "android_client_info": {
+          "package_name": "com.questpirates.greathomesfurniture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376795829701-4hf5ti0fqmgfimh9lun82dohrcpiu2q2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.questpirates.greathomesfurniture",
+            "certificate_hash": "88b6910b489e4991c585cf5ebe335da44f18da5d"
+          }
+        },
+        {
+          "client_id": "376795829701-0nmipvqg5kpn9md19br0gajo7723ksqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE_-KB8qoMMpv29gKWvgI0N_pkPZqIQoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376795829701-0nmipvqg5kpn9md19br0gajo7723ksqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

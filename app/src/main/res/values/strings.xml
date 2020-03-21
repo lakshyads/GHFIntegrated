@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">GreatHomesFurniture</string>
+
+    <string-array name="catalouge">
+        <item>All</item>
+        <item>Chairs</item>
+        <item>Desks</item>
+        <item>Tables</item>
+        <item>Couch</item>
+        <item>Beds</item>
+        <item>Other Essentials</item>
+    </string-array>
+
+    <!-- Intent names for DialogFlow interaction -->
+    <string-array name="intents">
+        <item >change-obj-color</item>
+
+    </string-array>
+
+    <!-- List<String> Lines = Arrays.asList(getResources().getStringArray(R.array.catalouge)); -->
+</resources>

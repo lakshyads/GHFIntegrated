@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_view_all_expenses"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="View All"
+        app:showAsAction="always" />
+
+    <item
+
+        android:id="@+id/action_view_dashboard1"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Dashboard"
+        app:showAsAction="withText" />
+
+    <item
+
+        android:id="@+id/action_view_dashboard11"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Dashboard"
+        app:showAsAction="withText" />
+
+    <!--<item-->
+        <!--android:enabled="false"-->
+        <!--android:title="Add Expense"-->
+        <!--app:showAsAction="always"-->
+        <!--android:checkable="false"-->
+        <!--android:checked="false"-->
+        <!--/>-->
+
+
+    <item
+
+        android:id="@+id/action_view_dashboard2"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Dashboard"
+        app:showAsAction="withText" />
+
+    <item
+
+        android:id="@+id/action_view_dashboard3"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Dashboard"
+        app:showAsAction="withText" />
+
+</menu>
