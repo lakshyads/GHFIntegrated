@@ -2,6 +2,7 @@ package com.questpirates.greathomesfurniture.ScanVision;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
@@ -28,7 +29,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.questpirates.greathomesfurniture.ItemFullActivity;
 import com.questpirates.greathomesfurniture.R;
+import com.questpirates.greathomesfurniture.SFBPojo;
+
+import java.util.HashMap;
 
 public class ScanQRActivity extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
@@ -122,7 +127,21 @@ public class ScanQRActivity extends AppCompatActivity {
                         public void run() {
                             String s = barcodes.valueAt(0).displayValue;
                             Log.e("BARCODE VALUE", "" + s);
-                            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                            if(s.equalsIgnoreCase("GHF0123CHAIR")){
+                                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                                HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                                hashMap.put("prodName", "Premium Wood Chair");
+                                hashMap.put("prodPrice", "20000");
+                                hashMap.put("prodImg", R.drawable.brown_chair_1);
+                                hashMap.put("prodSFB", "chair.sfb");
+                                SFBPojo.setSFBFile("chair.sfb");
+                                Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
+                                intent.putExtra("map", hashMap);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Item not available", Toast.LENGTH_LONG).show();
+                            }
+
                             cameraSource.stop();
                         }
                     });

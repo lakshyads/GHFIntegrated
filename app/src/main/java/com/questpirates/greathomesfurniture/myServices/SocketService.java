@@ -253,7 +253,7 @@ public class SocketService extends Service {
                                         (cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
                                     SendJavaEmail sendJavaEmail = new SendJavaEmail(
 //                                            "manjunath189@gmail.com,lakshyadev@live.com" +
-                                            "manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com",
+                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com",
                                             "GHF Support",
                                             "",
                                             "");
