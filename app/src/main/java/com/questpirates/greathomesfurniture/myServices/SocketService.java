@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -17,11 +18,13 @@ import androidx.fragment.app.Fragment;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.questpirates.greathomesfurniture.ARMainActivity;
+import com.questpirates.greathomesfurniture.ItemFullActivity;
 import com.questpirates.greathomesfurniture.MainActivity;
 import com.questpirates.greathomesfurniture.R;
+import com.questpirates.greathomesfurniture.SFBPojo;
 import com.questpirates.greathomesfurniture.ScanVision.IntelliVisionActivity;
 import com.questpirates.greathomesfurniture.ScanVision.ScanQRActivity;
-import com.questpirates.greathomesfurniture.WelcomeActivity;
+import com.questpirates.greathomesfurniture.SendJavaEmail;
 import com.questpirates.greathomesfurniture.arcore.ArCoreHome;
 import com.questpirates.greathomesfurniture.utils.SocketInstance;
 
@@ -37,6 +40,7 @@ public class SocketService extends Service {
     public static final String BROADCAST_MAIN = "MAIN";
     public static final String BROADCAST_MAINCHAIRS = "MCHAIRS";
     public static final String BROADCAST_MAINDESKS = "MDESKS";
+    public static final String BROADCAST_MAINTABLES = "MTABLES";
     private Socket socket;
     private ActivityManager am;
     private ComponentName cn;
@@ -106,18 +110,9 @@ public class SocketService extends Service {
                     dialog.show();
                 }
 
-                if (intentName.equalsIgnoreCase("change-obj-color")) {
-                    String color = null;
-                    try {
-                        color = data.getString("color");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    i = new Intent(BROADCAST_COLOR);
-                    i.putExtra("color", color);
-                    sendBroadcast(i);
-                    Log.d("SocketServiceColor", intentName + color);
-                }
+//                if (intentName.equalsIgnoreCase("change-obj-color")) {
+//
+//                }
 
                 am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
                 cn = am.getRunningTasks(1).get(0).topActivity;
@@ -239,9 +234,30 @@ public class SocketService extends Service {
                                     act.putExtra("fragment", "hometables");
                                     startActivity(act);
                                 } else {
-                                    i = new Intent(BROADCAST_MAIN);
+                                    i = new Intent(BROADCAST_MAINTABLES);
                                     i.putExtra("fragment", "hometables");
                                     sendBroadcast(i);
+                                }
+                                break;
+
+                            case "show this in ar": //Main Activity - Home Fragement - tables tab
+                                if ((!cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
+                                    Intent act = new Intent(getApplicationContext(), ARMainActivity.class);
+                                    act.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    act.setData(Uri.parse(SFBPojo.getSFBFile()));
+                                    startActivity(act);
+                                }
+                                break;
+                            case "connect liveagent": //connect to live agent, trigger email
+                                if ((cn.getShortClassName().equalsIgnoreCase(".ItemFullActivity")) ||
+                                        (cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
+                                    SendJavaEmail sendJavaEmail = new SendJavaEmail(
+//                                            "manjunath189@gmail.com,lakshyadev@live.com" +
+                                            "manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com",
+                                            "GHF Support",
+                                            "",
+                                            "");
+                                    sendJavaEmail.sendEmail();
                                 }
                                 break;
                         }
@@ -255,15 +271,22 @@ public class SocketService extends Service {
                     case "check-productinfo": //respond some random product info
                         break;
                     case "change-obj-color": //change AR renderable item color in AR activity
+                        String color = null;
+                        try {
+                            color = data.getString("color");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        i = new Intent(BROADCAST_COLOR);
+                        i.putExtra("color", color);
+                        sendBroadcast(i);
+                        Log.d("SocketServiceColor", intentName + color);
                         break;
-                    case "connect-liveagent": //connect to live agent, trigger email
-                        break;
+
                     case "check-price": ////respond some random price
                         break;
                     case "whats-oncart": //respond with contents of cart
                         break;
-
-
 
 
                     default:

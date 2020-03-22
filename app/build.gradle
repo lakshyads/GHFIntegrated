@@ -41,6 +41,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
     implementation "com.google.ar.sceneform.ux:sceneform-ux:1.15.0"
 
+    implementation files('libs\\activation.jar')
+    implementation files('libs\\additional.jar')
+    implementation files('libs\\mail.jar')
+
     //FOR IMAGE LABELLER
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
     implementation 'com.google.firebase:firebase-ml-vision-image-label-model:19.0.0'
@@ -48,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
 
     // For socket.io
-    implementation ('com.github.nkzawa:socket.io-client:0.6.0'){
+    implementation('com.github.nkzawa:socket.io-client:0.6.0') {
         exclude group: 'org.json', module: 'json'
     }
 //    implementation 'com.squareup.okhttp3:okhttp:3.11.0'

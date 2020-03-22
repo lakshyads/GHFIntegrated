@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.questpirates.greathomesfurniture.ItemFullActivity;
 import com.questpirates.greathomesfurniture.R;
+import com.questpirates.greathomesfurniture.SFBPojo;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,19 +64,29 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
             String z[] = key.split("@");
             final String prodName = z[0];
-            String prodPrice = "Rs. " + z[1];
+            final String prodPrice = z[1];
+            final String valObj = z[2];
+            final String valSFB = z[3];
+            final int drawable = val;
 
             holder.textViewHead.setImageResource(val);
             holder.prodHead.setText(prodName);
-            holder.prodPrice.setText(prodPrice);
+            holder.prodPrice.setText("Rs." + prodPrice);
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "click on item: " + prodName, Toast.LENGTH_LONG).show();
-//                    Intent i = new Intent(view.getContext(), MainActivity.class);
-//                    i.putExtra("image", z[1]);
-//                    view.getContext().startActivity(i);
+
+                    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                    hashMap.put("prodName", prodName);
+                    hashMap.put("prodPrice", prodPrice);
+                    hashMap.put("prodImg", drawable);
+                    hashMap.put("prodSFB", valSFB);
+                    SFBPojo.setSFBFile(valSFB);
+                    Intent intent = new Intent(view.getContext(), ItemFullActivity.class);
+                    intent.putExtra("map", hashMap);
+                    view.getContext().startActivity(intent);
+
                 }
             });
         } catch (Exception e) {

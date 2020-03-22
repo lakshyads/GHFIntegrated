@@ -13,7 +13,7 @@
 
     <!-- Intent names for DialogFlow interaction -->
     <string-array name="intents">
-        <item >change-obj-color</item>
+        <item>change-obj-color</item>
 
     </string-array>
 

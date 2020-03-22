@@ -18,28 +18,28 @@ public class SomeData {
 
     public SomeData() {
         //Chairs
-        Chairproducts.put("ChairName@ChairPrice@chair@chair.sfb", R.drawable.furnitures);
-        Chairproducts.put("ChairName1@ChairPrice@chair@chair.sfb", R.drawable.camera);
+        Chairproducts.put("Premium Brown Chair@9999@chair@chair.sfb", R.drawable.brown_chair_1);
+        Chairproducts.put("Seesham Wood Chair@4999@chair@chair.sfb", R.drawable.seesham_wood_chair);
 
         //Desks
-        Deskproducts.put("DeskName@DeskPrice@desk@Desk.sfb", R.drawable.sendchat);
-        Deskproducts.put("DeskName1@DeskPrice@desk@Desk.sfb", R.drawable.chatbot);
+        Deskproducts.put("Computer Desk@12000@desk@Desk.sfb", R.drawable.comp_desk);
+        Deskproducts.put("Corner Desk@20000@desk@Desk.sfb", R.drawable.corner_desk);
 
         //Couch
-        Couchproducts.put("CouchName@CouchPrice@couch@couch.sfb", R.drawable.emptycart);
-        Couchproducts.put("CouchName1@CouchPrice@couch@couch.sfb", R.drawable.vision);
+        Couchproducts.put("Royal Gold Couch@18000@couch@couch.sfb", R.drawable.soft_couch);
+        Couchproducts.put("Home Style Couch@9999@couch@couch.sfb", R.drawable.home_style_couch);
 
         //Tables
-        Tableproducts.put("TableName@TablePrice@table@table.sfb", R.drawable.profile);
-        Tableproducts.put("TableName1@TablePrice@table@table.sfb", R.drawable.qr);
+        Tableproducts.put("Clarie Coffee Table@28000@table@table.sfb", R.drawable.clarie_coffee_table);
+        Tableproducts.put("Office Table@3500@table@table.sfb", R.drawable.office_table);
 
         //Beds
-        Bedproducts.put("BedName@BedPrice@bed@bed.sfb", R.drawable.shoppingcart);
-        Bedproducts.put("BedName1@BedPrice@bed@bed.sfb", R.drawable.ghflogo);
+        Bedproducts.put("Zorin Home Bed@15000@bed@bed.sfb", R.drawable.zorin_bed);
+        Bedproducts.put("Columba King Bed@15000@bed@bed.sfb", R.drawable.columba_king);
 
         //Others
-        Othproducts.put("OtherName@OtherPrice@other@other.sfb", R.drawable.voicebot);
-        Othproducts.put("OtherName1@OtherPrice@other@other.sfb", R.drawable.images);
+        Othproducts.put("Book Shelf@OtherPrice@1999@other.sfb", R.drawable.book_shelf);
+        Othproducts.put("Book Case Almirah@1999@other@other.sfb", R.drawable.book_case_almirah);
 
         Allproducts.putAll(Chairproducts);
         Allproducts.putAll(Deskproducts);

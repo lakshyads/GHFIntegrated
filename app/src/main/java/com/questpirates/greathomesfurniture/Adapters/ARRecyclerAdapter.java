@@ -14,8 +14,10 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.questpirates.greathomesfurniture.ARMainActivity;
+import com.questpirates.greathomesfurniture.ItemFullActivity;
 import com.questpirates.greathomesfurniture.R;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -75,6 +77,10 @@ public class ARRecyclerAdapter extends RecyclerView.Adapter<ARRecyclerAdapter.Vi
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
+
+
                     Toast.makeText(view.getContext(), "click on item: " + prodName, Toast.LENGTH_LONG).show();
                     Intent i = new Intent(view.getContext(), ARMainActivity.class);
                     //i.putExtra("image", valSFB);
