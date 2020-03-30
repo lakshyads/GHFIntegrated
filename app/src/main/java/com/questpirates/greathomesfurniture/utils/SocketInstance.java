@@ -17,6 +17,7 @@ public class SocketInstance extends Application{
         try {
             IO.Options opts = new IO.Options();
             opts.port = 3000;
+           // opts.query = SocketQuery.getQUERY();
             mSocket = IO.socket(URL,opts);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

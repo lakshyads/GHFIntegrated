@@ -50,10 +50,13 @@
 <!--    <color name="ARRED">0xffff0000</color>-->
 <!--    <color name="ARWHITE">0xffffffff</color>-->
     <color name="ARBLACK">#000000</color>
-    <color name="ARBLUE">#3F51B5</color>
+    <color name="ARBLUE">#29367E</color>
     <color name="ARGRAY">#A3A1A1</color>
-    <color name="ARGREEN">#4CAF50</color>
-    <color name="ARRED">#F44336</color>
+    <color name="ARGRAY_DARK">#7A7272</color>
+    <color name="ARGREEN">#1A801E</color>
+    <color name="ARRED">#AE1A10</color>
     <color name="ARWHITE">#FFFFFF</color>
     <color name="ARBROWN">#B67009</color>
+    <color name="ARBROWN_DARK">#73490A</color>
+    <color name="ARWOOD">#311B92</color>
 </resources>

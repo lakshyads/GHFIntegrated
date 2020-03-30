@@ -26,6 +26,7 @@ import com.questpirates.greathomesfurniture.ScanVision.IntelliVisionActivity;
 import com.questpirates.greathomesfurniture.ScanVision.ScanQRActivity;
 import com.questpirates.greathomesfurniture.SendJavaEmail;
 import com.questpirates.greathomesfurniture.arcore.ArCoreHome;
+import com.questpirates.greathomesfurniture.pojo.SocketPojo;
 import com.questpirates.greathomesfurniture.utils.SocketInstance;
 
 import org.json.JSONException;
@@ -74,6 +75,8 @@ public class SocketService extends Service {
             socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             socket.connect();
 
+
+
         } catch (Exception e) {
             Log.d("socket connection error", Objects.requireNonNull(e.getMessage()));
             e.printStackTrace();
@@ -87,6 +90,9 @@ public class SocketService extends Service {
         // Listen socket event
         socket.on("Change renderable color", socketListener);
         socket.on("Open Activity", socketListener);
+        //socket.emit("DATA","SOME QUERY",socketListener);
+
+        SocketPojo.setSocket(socket);//few more mins on call
     }
 
     // Listener for socket event - socketListener
@@ -214,6 +220,7 @@ public class SocketService extends Service {
                                     i.putExtra("fragment", "homechairs");
                                     sendBroadcast(i);
                                 }
+                                // emit
                                 break;
                             case "show desks": //Main Activity - Home Fragement - desks tab
                                 if ((!cn.getShortClassName().equalsIgnoreCase(".MainActivity"))) {
@@ -226,6 +233,7 @@ public class SocketService extends Service {
                                     i.putExtra("fragment", "homedesks");
                                     sendBroadcast(i);
                                 }
+                                // emit
                                 break;
                             case "show tables": //Main Activity - Home Fragement - tables tab
                                 if ((!cn.getShortClassName().equalsIgnoreCase(".MainActivity"))) {
@@ -238,6 +246,7 @@ public class SocketService extends Service {
                                     i.putExtra("fragment", "hometables");
                                     sendBroadcast(i);
                                 }
+                                // emit
                                 break;
 
                             case "show this in ar": //Main Activity - Home Fragement - tables tab
@@ -312,6 +321,9 @@ public class SocketService extends Service {
         }
     };
 
+    public void emitProductData (JSONObject prodData){
+        socket.emit("Current Product Data", prodData);
+    }
 
     @Override
     public void onDestroy() {

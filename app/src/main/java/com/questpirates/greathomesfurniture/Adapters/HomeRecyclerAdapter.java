@@ -71,7 +71,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
             holder.textViewHead.setImageResource(val);
             holder.prodHead.setText(prodName);
-            holder.prodPrice.setText("Rs." + prodPrice);
+            holder.prodPrice.setText("₹. " + prodPrice);
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

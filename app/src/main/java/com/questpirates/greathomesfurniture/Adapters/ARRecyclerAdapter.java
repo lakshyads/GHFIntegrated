@@ -61,8 +61,8 @@ public class ARRecyclerAdapter extends RecyclerView.Adapter<ARRecyclerAdapter.Vi
             mapdata.remove(key);
 
             String z[] = key.split("@");
-            for(String a : z){
-                Log.d("Key",  a);
+            for (String a : z) {
+                Log.d("Key", a);
             }
             final String prodName = z[0];
             final String prodPrice = z[1];
@@ -72,13 +72,11 @@ public class ARRecyclerAdapter extends RecyclerView.Adapter<ARRecyclerAdapter.Vi
 
             holder.textViewHead.setImageResource(val);
             holder.prodHead.setText(prodName);
-            holder.prodPrice.setText(prodPrice);
+            holder.prodPrice.setText("₹. " + prodPrice);
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-
 
 
                     Toast.makeText(view.getContext(), "click on item: " + prodName, Toast.LENGTH_LONG).show();
@@ -86,7 +84,7 @@ public class ARRecyclerAdapter extends RecyclerView.Adapter<ARRecyclerAdapter.Vi
                     //i.putExtra("image", valSFB);
                     i.setData(Uri.parse(valSFB));
                     Log.d("BindView", "SFB BEFORE " + valSFB);
-                    Toast.makeText(view.getContext(),"SFB selected: " + valSFB, Toast.LENGTH_LONG);
+                    Toast.makeText(view.getContext(), "SFB selected: " + valSFB, Toast.LENGTH_LONG);
                     view.getContext().startActivity(i);
                 }
             });
