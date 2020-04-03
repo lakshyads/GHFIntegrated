@@ -1,29 +1,15 @@
 package com.questpirates.greathomesfurniture;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,8 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.questpirates.greathomesfurniture.bottomNavFrags.AssistantFragment;
 import com.questpirates.greathomesfurniture.bottomNavFrags.CartFragment;
 import com.questpirates.greathomesfurniture.bottomNavFrags.HomeFragment;
@@ -47,7 +41,6 @@ import com.questpirates.greathomesfurniture.myServices.SocketService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,28 +89,38 @@ public class MainActivity extends AppCompatActivity {
             checkAndRequestPermissions();
         }
 
-        if(!(getIntent().getStringExtra("fragment") == null)) {
+        if (!(getIntent().getStringExtra("fragment") == null)) {
             String z = getIntent().getStringExtra("fragment");
-            switch(z.toLowerCase()) {
-                case "cart" : loadFragment(new CartFragment());
-                break;
-                case "profile" : loadFragment(new ProfileFragment());
+            switch (z.toLowerCase()) {
+                case "cart":
+                    loadFragment(new CartFragment());
                     break;
-                case "chat" : loadFragment(new AssistantFragment());
+                case "profile":
+                    loadFragment(new ProfileFragment());
                     break;
-                case "home" : loadFragment(new HomeFragment());
+                case "chat":
+                    loadFragment(new AssistantFragment());
                     break;
-                case "homechairs" : loadFragment(new HomeFragment());
+                case "home":
+                    loadFragment(new HomeFragment());
+                    break;
+                case "homechairs":
+                    loadFragment(new HomeFragment());
                     setItemValue("chairs");
                     break;
-                case "homedesks" : loadFragment(new HomeFragment());
+                case "homedesks":
+                    loadFragment(new HomeFragment());
                     setItemValue("desks");
                     break;
-                case "hometables" : loadFragment(new HomeFragment());
+                case "hometables":
+                    loadFragment(new HomeFragment());
                     setItemValue("tables");
                     break;
+                case "chatscreen":
+                    loadFragment(new AssistantFragment());
+                    break;
             }
-        }else{
+        } else {
             loadFragment(new HomeFragment());
         }
         // Inflate your custom layout
@@ -140,11 +143,10 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(null);
 
-        if(SERVICE_FLAG){
+        if (SERVICE_FLAG) {
             startService(new Intent(MainActivity.this, SocketService.class));
             SERVICE_FLAG = false;
         }
-
 
 
     }
@@ -303,25 +305,36 @@ public class MainActivity extends AppCompatActivity {
         stopService(new Intent(MainActivity.this, SocketService.class));
     }
 
-    private void dosomething(Intent i){
+    private void dosomething(Intent i) {
         String val = i.getStringExtra("fragment");
-        switch (val){
-            case "cart" : loadFragment(new CartFragment());
+        switch (val) {
+            case "cart":
+                loadFragment(new CartFragment());
                 break;
-            case "profile" : loadFragment(new ProfileFragment());
+            case "profile":
+                loadFragment(new ProfileFragment());
                 break;
-            case "chat" : loadFragment(new AssistantFragment());
+            case "chat":
+                loadFragment(new AssistantFragment());
                 break;
-            case "home" : loadFragment(new HomeFragment());
+            case "home":
+                loadFragment(new HomeFragment());
                 break;
-            case "homechairs" : loadFragment(new HomeFragment());
+            case "homechairs":
+                loadFragment(new HomeFragment());
                 setItemValue("chairs");
                 break;
-            case "homedesks" : loadFragment(new HomeFragment());
+            case "homedesks":
+                loadFragment(new HomeFragment());
                 setItemValue("desks");
                 break;
-            case "hometables" : loadFragment(new HomeFragment());
+            case "hometables":
+                loadFragment(new HomeFragment());
                 setItemValue("tables");
+                break;
+
+            case "chatscreen":
+                loadFragment(new AssistantFragment());
                 break;
         }
     }
@@ -334,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
         return ITEM_NAME;
     }
 
-    private BroadcastReceiver broadcastReceiverM= new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiverM = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             dosomething(intent);

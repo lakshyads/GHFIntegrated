@@ -1,11 +1,19 @@
 package com.questpirates.greathomesfurniture;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +40,7 @@ public class ItemFullActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_full_new);
+        ContextPojo.setContext(getApplicationContext());
 
         int indexRand = new Random().nextInt(3 - 0) + 0;
         ;
@@ -123,5 +132,6 @@ public class ItemFullActivity extends AppCompatActivity {
 
         return warInfo.get(index);
     }
+
 
 }

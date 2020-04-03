@@ -10,6 +10,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.questpirates.greathomesfurniture.ARMainActivity;
-import com.questpirates.greathomesfurniture.ItemFullActivity;
+import com.questpirates.greathomesfurniture.AlertDialogActivity;
 import com.questpirates.greathomesfurniture.MainActivity;
 import com.questpirates.greathomesfurniture.R;
 import com.questpirates.greathomesfurniture.SFBPojo;
@@ -74,7 +79,6 @@ public class SocketService extends Service {
             socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
             socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             socket.connect();
-
 
 
         } catch (Exception e) {
@@ -260,13 +264,20 @@ public class SocketService extends Service {
                             case "connect liveagent": //connect to live agent, trigger email
                                 if ((cn.getShortClassName().equalsIgnoreCase(".ItemFullActivity")) ||
                                         (cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
+
+                                    Intent dialogIntent = new Intent(getApplicationContext(), AlertDialogActivity.class);
+                                    getApplication().startActivity(dialogIntent);
+
                                     SendJavaEmail sendJavaEmail = new SendJavaEmail(
-//                                            "manjunath189@gmail.com,lakshyadev@live.com" +
-                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com",
+                                            "manjunath189@gmail.com"
+//                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com"
+                                            ,
                                             "GHF Support",
                                             "",
                                             "");
                                     sendJavaEmail.sendEmail();
+
+                                    //showCustomPopupMenu();
                                 }
                                 break;
                         }
@@ -321,7 +332,7 @@ public class SocketService extends Service {
         }
     };
 
-    public void emitProductData (JSONObject prodData){
+    public void emitProductData(JSONObject prodData) {
         socket.emit("Current Product Data", prodData);
     }
 
@@ -363,6 +374,35 @@ public class SocketService extends Service {
                 handler.postDelayed(this, 500);
             }
         }
+    }
+
+    public void showSuccess(final String msg, Context c) {
+//        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+//        ViewGroup viewGroup = findViewById(android.R.id.content);
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(c).inflate(R.layout.my_dialog, null, false);
+        //Now we need an AlertDialog.Builder object
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(c);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+        builder.setCancelable(false);
+
+
+        //finally creating the alert dialog and displaying it
+        final android.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Button b = dialogView.findViewById(R.id.buttonOk);
+        TextView t = dialogView.findViewById(R.id.msg);
+        t.setText(msg);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+
     }
 
 

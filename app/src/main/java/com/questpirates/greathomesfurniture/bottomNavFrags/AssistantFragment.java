@@ -5,9 +5,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +22,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.questpirates.greathomesfurniture.Adapters.chatMessageAdapter;
 import com.questpirates.greathomesfurniture.CVAssistant.TextToSpeechh;
+import com.questpirates.greathomesfurniture.HttpHandler;
+import com.questpirates.greathomesfurniture.MainActivity;
 import com.questpirates.greathomesfurniture.R;
+import com.questpirates.greathomesfurniture.pojo.SocketPojo;
 import com.questpirates.greathomesfurniture.pojo.chatMessagePojo;
+import com.questpirates.greathomesfurniture.utils.SocketInstance;
 
 import org.alicebot.ab.AIMLProcessor;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 import org.alicebot.ab.MagicStrings;
 import org.alicebot.ab.PCAIMLProcessorExtension;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,6 +53,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class AssistantFragment extends Fragment {
 
@@ -56,6 +73,8 @@ public class AssistantFragment extends Fragment {
     private chatMessageAdapter chatMsgAdapter;
 
 
+    private Socket socket;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,6 +90,8 @@ public class AssistantFragment extends Fragment {
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         view = inflater.inflate(R.layout.fragment_assistant, null);
         chatlist = view.findViewById(R.id.chatdatascroll);
+        chatlist.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        chatlist.setStackFromBottom(true);
         chatBox = view.findViewById(R.id.chattext);
         sendChat = view.findViewById(R.id.sendchatbot);
         voicechat = view.findViewById(R.id.voicebot);
@@ -102,7 +123,7 @@ public class AssistantFragment extends Fragment {
                     return;
                 }
 
-                chatReqRes(msg, resp);
+                showUserAgentChatInUI(msg, resp);
 
                 chatBox.getText().clear();
                 return;
@@ -150,10 +171,68 @@ public class AssistantFragment extends Fragment {
         ourChat = new Chat(ourBot);
 
 
+        ////////////////////////////////////////////
+        //SOCKET
+
+        // Get socket instance from SocketInstance class and connect to it
+        try {
+            SocketInstance app = (SocketInstance) getActivity().getApplication();
+            socket = app.getSocket();
+            socket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Handler requestErrorHandler = new Handler(Looper.getMainLooper());
+                    requestErrorHandler.post(() ->
+                            Toast.makeText(getContext(), "Unable to connect to NodeJS server", Toast.LENGTH_LONG).show()
+                    );
+                }
+            });
+            socket.on(Socket.EVENT_CONNECT_TIMEOUT, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Handler requestErrorHandler = new Handler(Looper.getMainLooper());
+                    requestErrorHandler.post(() ->
+                            Toast.makeText(getContext(), "Unable to connect to NodeJS server", Toast.LENGTH_LONG).show()
+                    );
+                }
+            });
+            socket.connect();
+
+
+        } catch (Exception e) {
+            Log.d("socket connection error", Objects.requireNonNull(e.getMessage()));
+            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage(e.getMessage())
+                    .setTitle("Error!");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+        // Listen socket event
+        //-JSONObject res = ItemFullActivity.getCommonJSON(prodData, warData, prodPrice);
+
+        new GetChatData().execute();
+
+        socket.emit("Get Chat History", "Get Chat History");
+        socket.on("Get Chat History", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                //Data in AsyncTask
+            }
+        });
+        //socket.emit("DATA","SOME QUERY",socketListener);
+
+        //SocketPojo.setSocket(socket);//few more mins on call
+
+
+        ///////////////////////////////////////////
+
+
         return view;
     }
 
-    private void chatReqRes(String request, String response) {
+    private void showUserAgentChatInUI(String request, String response) {
 
         sendChatMethod(request);
         botReply(response);
@@ -252,7 +331,7 @@ public class AssistantFragment extends Fragment {
                     //sendChatMethod(VOICE_DATA);
 
                     String resp = ourChat.multisentenceRespond(VOICE_DATA);
-                    chatReqRes(VOICE_DATA, resp);
+                    showUserAgentChatInUI(VOICE_DATA, resp);
 
                     new TextToSpeechh().textToSpeech(resp, getContext());
 
@@ -260,6 +339,125 @@ public class AssistantFragment extends Fragment {
                 break;
             }
 
+        }
+    }
+
+    //////////////////////////////////////
+    private class GetChatData extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(getContext(),"Start Progress bar",Toast.LENGTH_LONG).show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            // Making a request to url and getting response
+            String url = "https://ghf-backend.herokuapp.com/get-chat-history";
+            String jsonStr = sh.makeServiceCall(url);
+
+            Log.e("TAG", "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject data = new JSONObject(jsonStr);
+
+                    Handler requestSuccessHandler = new Handler(Looper.getMainLooper());
+                    requestSuccessHandler.post(() -> {
+                        try {
+
+                            String success = data.getString("success");
+
+                            if(success.equalsIgnoreCase("true")){
+                                JSONArray chatdata = data.getJSONArray("data");
+
+                                for(int i = 0; i< chatdata.length();i++){
+                                    JSONObject chatblock = chatdata.getJSONObject(i);
+
+                                    String userreq = chatblock.getString("queryText");
+                                    String agentresp = chatblock.getString("fulfillmentText");
+                                    String timestamp = chatblock.getString("timestamp");
+
+                                    showUserAgentChatInUI(userreq,agentresp);
+                                }
+                            }else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setMessage("No Chat History for the User")
+                                        .setTitle("Error!");
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                                throw new JSONException("JSONError"+ String.valueOf(data));
+                            }
+
+
+
+
+//                            JSONArray jsonArray = data.getJSONArray("chatdata");
+//
+//
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject chatdata = jsonArray.getJSONObject(i);
+//                                String userEmail = chatdata.getString("useremail");
+//                                String deviceIMEI = chatdata.getString("deviceimei");
+//
+//                                JSONArray chathistory = chatdata.getJSONArray("chathistory");
+//
+//                                if (userEmail.equalsIgnoreCase("global@email.com")) {
+//                                    //CODE TO READ AND LOOP THROUGH EACH CHAT MESSAGE
+//                                    for (int j = 0; i < chathistory.length(); i++) {
+//                                        JSONObject c = chathistory.getJSONObject(i);
+//                                        String id = c.getString("id");
+//                                        String userRequest = c.getString("userrequest");
+//                                        String agentResponse = c.getString("agentesponse");
+//                                        String timestamp = c.getString("timestamp");
+//                                        showUserAgentChatInUI(userRequest, agentResponse);
+//                                    }
+//                                }
+//                            }
+                            Log.d("SocketChatHistory", String.valueOf(data));
+                        } catch (JSONException e) {
+                            Log.d("socket-data-parse-error", Objects.requireNonNull(e.getMessage()));
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setMessage(e.getMessage())
+                                    .setTitle("Error!");
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText( getContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Toast.makeText(getContext(),"Stop Progress bar",Toast.LENGTH_LONG).show();
         }
     }
 
