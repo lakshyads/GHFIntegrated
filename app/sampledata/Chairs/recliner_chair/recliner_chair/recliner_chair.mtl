@@ -1,0 +1,25 @@
+# Exported from 3D Builder
+
+newmtl Mat_0
+Kd 1.000000 1.000000 1.000000
+map_Kd recliner_chair.png
+
+newmtl Mat_1
+Kd 1.000000 1.000000 1.000000
+map_Kd 2414.png
+
+newmtl Mat_2
+Kd 1.000000 1.000000 1.000000
+map_Kd 2424.png
+
+newmtl Mat_3
+Kd 1.000000 1.000000 1.000000
+map_Kd 2434.png
+
+newmtl Mat_4
+Kd 1.000000 1.000000 1.000000
+map_Kd 2500.png
+
+newmtl Mat_5
+Kd 1.000000 1.000000 1.000000
+map_Kd 2686.png
