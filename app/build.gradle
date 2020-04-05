@@ -89,3 +89,9 @@ sceneform.asset('sampledata/table/table.obj',
         'default',
         'sampledata/desk/table.sfa',
         'src/main/assets/models/table')
+
+
+sceneform.asset('sampledata/tablelamp/model.obj',
+        'default',
+        'sampledata/tablelamp/model.sfa',
+        'src/main/assets/model')

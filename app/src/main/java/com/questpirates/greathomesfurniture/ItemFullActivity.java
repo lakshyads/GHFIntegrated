@@ -73,10 +73,30 @@ public class ItemFullActivity extends AppCompatActivity {
 
         // SocketQuery.setQUERY("WARRENTY DATA");
 
-        tvProdName.setText(prodName);
-        tvMRP.setText((Html.fromHtml("<strike> ₹. " + (Integer.parseInt(prodPrice) + 2000) + "</strike>")));
+        int price = Integer.parseInt(prodPrice);
+        double mrp = Integer.parseInt(prodPrice) + 20;
+        if(price<100){
+            mrp = 99.99;
+        }else if (price >=100 && price <200){
+            mrp = 199.99;
+        }else if (price >=200 && price <300){
+            mrp = 299.99;
+        }else if (price >=300 && price <400){
+            mrp = 399.99;
+        }else if (price >=400 && price <500){
+            mrp = 499.99;
+        }else if (price >=500 && price <700){
+            mrp = 699.99;
+        }else if (price >=700 && price <800){
+            mrp = 799.99;
+        }else if (price >=800 && price <1000){
+            mrp = 1999.99;
+        }
 
-        tvProdPrice.setText("₹. " + prodPrice);
+        tvProdName.setText(prodName);
+        tvMRP.setText((Html.fromHtml("<strike> $ " + mrp + "</strike>")));
+
+        tvProdPrice.setText("$ " + prodPrice);
         imgProd.setImageResource(prodImg);
         proddetails.setText(prodData);
         warrentydetails.setText(warData);
