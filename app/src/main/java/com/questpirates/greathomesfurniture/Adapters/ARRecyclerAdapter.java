@@ -72,7 +72,7 @@ public class ARRecyclerAdapter extends RecyclerView.Adapter<ARRecyclerAdapter.Vi
 
             holder.textViewHead.setImageResource(val);
             holder.prodHead.setText(prodName);
-            holder.prodPrice.setText("₹. " + prodPrice);
+            holder.prodPrice.setText("$ " + prodPrice);
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
