@@ -175,6 +175,7 @@ public class ARMainActivity extends AppCompatActivity {
         try {
             Material changedMaterial = (renderableCopy.getMaterial()).makeCopy();
             changedMaterial.setFloat3("baseColorTint", color);
+            changedMaterial.setFloat4("baseColorTint", color);
             renderableCopy.setMaterial(changedMaterial);
         } catch (Exception err) {
             Log.d("color change error", Objects.requireNonNull(err.getMessage()));

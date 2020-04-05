@@ -1,12 +1,9 @@
 package com.questpirates.greathomesfurniture.ScanVision;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -133,8 +129,8 @@ public class ScanQRActivity extends AppCompatActivity {
                                 hashMap.put("prodName", "Premium Wood Chair");
                                 hashMap.put("prodPrice", "20000");
                                 hashMap.put("prodImg", R.drawable.brown_chair_1);
-                                hashMap.put("prodSFB", "chair.sfb");
-                                SFBPojo.setSFBFile("chair.sfb");
+                                hashMap.put("prodSFB", "archive/chair.sfb");
+                                SFBPojo.setSFBFile("archive/chair.sfb");
                                 Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
                                 intent.putExtra("map", hashMap);
                                 startActivity(intent);

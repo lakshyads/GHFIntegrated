@@ -39,7 +39,7 @@ public class SomeData {
 
         //Beds
         Bedproducts.put("Zorin Double Drawer Bed@15000@double_drawer_bed@double_drawer_bed.sfb", R.drawable.double_drawer_bed);
-        Bedproducts.put("Columba King Bed@15000@plane_bed@plane_bed.sfb", R.drawable.queen_size_bed);
+        Bedproducts.put("Columba Queen Bed@15000@queenBed@queenBed.sfb", R.drawable.queen_size_bed);
         Bedproducts.put("Columba Single Bed@15000@single_bed@single_bed.sfb", R.drawable.single_bed);
 
         //Others
@@ -47,7 +47,7 @@ public class SomeData {
         Othproducts.put("Picture Perfect Frame@1999@frame@frame.sfb", R.drawable.frame);
         Othproducts.put("Tall Bed Lamp@1999@standing_lamp@standing_lamp.sfb", R.drawable.standinglamp);
         Othproducts.put("Premium Table Lamp@1999@table_lamp@table_lamp.sfb", R.drawable.tablelamp);
-        Othproducts.put("Vintage Wooden Table@1999@vintage_wooden_table@vintage_wooden_table.sfb", R.drawable.vintagewoodtable);
+        Othproducts.put("Vintage Wooden Table@1999@vintagewoodtable@vintagewoodtable.sfb", R.drawable.vintagewoodtable);
 
         Allproducts.putAll(Chairproducts);
         Allproducts.putAll(Deskproducts);
