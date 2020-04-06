@@ -34,7 +34,7 @@ public class ItemFullActivity extends AppCompatActivity {
 
     TextView tvProdName, tvProdPrice, tvMRP, proddetails, warrentydetails;
     ImageView imgProd, imgAR;
-    String prodData, warData;
+    String prodData, warData, prodDataBackend, warDatabackend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,12 @@ public class ItemFullActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_full_new);
         ContextPojo.setContext(getApplicationContext());
 
-        int indexRand = new Random().nextInt(3 - 0) + 0;
+        int indexRand = new Random().nextInt(7 - 0) + 0;
         ;
 
-        prodData = getRandomProductInfo(indexRand);
+        prodData = getRandomProductInfo(indexRand).replaceAll("@","");
         warData = getRandomWarrentyInfo(indexRand);
+        prodDataBackend = getRandomProductInfo(indexRand).split("@")[0] + "You can ask me to show this in ar to visualize products in your home.";
 
 
         tvProdName = findViewById(R.id.prodname);
@@ -65,7 +66,7 @@ public class ItemFullActivity extends AppCompatActivity {
         int prodImg = (int) hashMap.get("prodImg");
         String prodSFB = (String) hashMap.get("prodSFB");
 
-        JSONObject res = ItemFullActivity.getCommonJSON(prodData, warData, prodPrice);
+        JSONObject res = ItemFullActivity.getCommonJSON(prodDataBackend, warData, prodPrice);
         Socket socket = SocketPojo.getSocket();
         socket.emit("Product Info", res);
         Log.d("JSON", res.toString());
@@ -101,6 +102,25 @@ public class ItemFullActivity extends AppCompatActivity {
         proddetails.setText(prodData);
         warrentydetails.setText(warData);
 
+        findViewById(R.id.showinartext).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ItemFullActivity.this, ARMainActivity.class);
+                //i.putExtra("image", valSFB);
+                i.setData(Uri.parse(prodSFB));
+                startActivity(i);
+            }
+        });
+        findViewById(R.id.showinarlay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ItemFullActivity.this, ARMainActivity.class);
+                //i.putExtra("image", valSFB);
+                i.setData(Uri.parse(prodSFB));
+                startActivity(i);
+            }
+        });
+
         imgAR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,10 +155,18 @@ public class ItemFullActivity extends AppCompatActivity {
 
     public String getRandomProductInfo(int index) {
         List<String> prodInfo = new ArrayList<>();
-        prodInfo.add("This Product is made of premium quality materials and comes in multiple color options too. You can ask take me to ar to visualize products in your home.");
-        prodInfo.add("This Product is a classic amalgamation of form and function. Crafted for compact homes, the range is clean and convenient and has an understated design aesthetic that adapts to any space.");
-        prodInfo.add("It offers the best in comfort with elan. The collections are a series of modern trendy designs, simple yet striking and represent the ideals of minimalism. The designs are a perfect blend of functionality and exceptional aesthetics. Each piece is crafted with passion and follows international standards on quality and style.");
-        prodInfo.add("This is by one of Indias leading manufacturers of furniture with a global presence. It stands for its innovative design, quality products and affordable prices, a combination that is almost impossible to find.");
+        prodInfo.add("This Product is made of premium quality materials and comes in multiple color options too. @ You can ask take me to ar to visualize products in your home.");
+        prodInfo.add("This Product is a classic amalgamation of form and function. Crafted for compact homes, @ the range is clean and convenient and has an understated design aesthetic that adapts to any space.");
+        prodInfo.add("It offers the best in comfort with elan. The collections are a series of modern trendy designs, simple yet striking and represent the ideals of minimalism. @The designs are a perfect blend of functionality and exceptional aesthetics. Each piece is crafted with passion and follows international standards on quality and style.");
+        prodInfo.add("This is by one of Indias leading manufacturers of furniture with a global presence. It stands for its innovative design, quality products and affordable prices, @ a combination that is almost impossible to find.");
+        prodInfo.add("This is Ideal for anchoring your modern space, this product is crafted with lush and glam look.The channel details on the arms and accent lend classic sophistication to your space, @ while the tonal piping on the edges of the product give it a tailored touch.");
+        prodInfo.add("Love It? The designs are a perfect blend of functionality and exceptional aesthetics. @ Each piece is crafted with passion and follows international standards on quality and style.This product has a birch wood frame that offers sturdy support and durability.");
+        prodInfo.add("A gorgeous premium finish, a sleek design, and easy assembly; what more could you want? @The Platform product Frame is the perfect statement piece to finish any place.Crafted to create an elegant look that matches perfectly with a classic tufted look.");
+        prodInfo.add("Included slats easily  fit into space to create even, lasting dashing look that eliminates the need for a box spring. @ Durable and classy finish the design for a versatile look that will go well with most styles and preferences.Everything you need, except a screwdriver, to quickly and easily assemble this and included in a compartment on the back . Ships quickly and easily in one box, right to your front door. Choose one of our four neutral colors and finish your house in style.");
+
+
+
+
 
         return prodInfo.get(index);
     }
@@ -149,6 +177,10 @@ public class ItemFullActivity extends AppCompatActivity {
         warInfo.add("The product comes with a 6 Months warranty.");
         warInfo.add("There is no warranty covered for this product");
         warInfo.add("The warranty, as mentioned, on the product is provided by the Merchant for 18 month period");
+        warInfo.add("The product comes with a minimum of 3 Months warranty under normal household conditions.");
+        warInfo.add("The product comes with a 18 Months warranty.");
+        warInfo.add("There is no warranty covered for this product");
+        warInfo.add("The warranty, as mentioned, on the product is provided by the Merchant for 12 month period");
 
         return warInfo.get(index);
     }

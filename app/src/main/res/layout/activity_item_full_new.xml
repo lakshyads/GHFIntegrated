@@ -47,38 +47,8 @@
                 android:gravity="start"
                 android:text="PRODUCT NAME"
                 android:textColor="#000000"
-                android:textSize="22sp" />
-
-            <LinearLayout
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/mrpprodpricelabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="    MRP ($) (Inc Taxes)"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/mrpprodprice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="$ 85000"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/ourprice"
@@ -87,17 +57,13 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-
-                <TextView
-                    android:id="@+id/ourprodpricelabel"
+                <Space
+                    android:id="@+id/space"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="    Our Price ($)"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:layout_weight="1" />
+
 
                 <TextView
                     android:id="@+id/ourprodprice"
@@ -105,10 +71,124 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:gravity="start"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
                     android:text="$ 99999"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/addcart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-     "
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1     "
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/mrpprodprice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
+                    android:text="$ 85000"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingStart="10dp"
+                android:text="Colors Available" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:orientation="horizontal"
+                android:paddingStart="10dp">
+
+
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARBLUE" />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARBROWN" />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARBLACK" />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARGRAY" />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARRED" />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/ARGREEN" />
+
 
             </LinearLayout>
 
@@ -120,6 +200,7 @@
                 android:backgroundTint="#090808" />
 
             <LinearLayout
+                android:id="@+id/showinarlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -137,6 +218,7 @@
                     app:srcCompat="@drawable/ar_icon" />
 
                 <TextView
+                    android:id="@+id/showinartext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
