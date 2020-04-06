@@ -123,14 +123,36 @@ public class ScanQRActivity extends AppCompatActivity {
                         public void run() {
                             String s = barcodes.valueAt(0).displayValue;
                             Log.e("BARCODE VALUE", "" + s);
-                            if(s.equalsIgnoreCase("GHF0123CHAIR")){
+                            if(s.equalsIgnoreCase("GHF0123PCOUCH")){
                                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                                 HashMap<String, Object> hashMap = new HashMap<String, Object>();
-                                hashMap.put("prodName", "Premium Wood Chair");
-                                hashMap.put("prodPrice", "20000");
-                                hashMap.put("prodImg", R.drawable.brown_chair_1);
-                                hashMap.put("prodSFB", "archive/chair.sfb");
-                                SFBPojo.setSFBFile("archive/chair.sfb");
+                                hashMap.put("prodName", "Royal Padded Couch");
+                                hashMap.put("prodPrice", "499");
+                                hashMap.put("prodImg", R.drawable.padded_couch);
+                                hashMap.put("prodSFB", "padded_couch.sfb");
+                                SFBPojo.setSFBFile("padded_couch.sfb");
+                                Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
+                                intent.putExtra("map", hashMap);
+                                startActivity(intent);
+                                }else if(s.equalsIgnoreCase("GHF0124CDESK")){
+                                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                                HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                                hashMap.put("prodName", "Computer Desk");
+                                hashMap.put("prodPrice", "103");
+                                hashMap.put("prodImg", R.drawable.comp_desk);
+                                hashMap.put("prodSFB", "computer_desk.sfb");
+                                SFBPojo.setSFBFile("computer_desk.sfb");
+                                Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
+                                intent.putExtra("map", hashMap);
+                                startActivity(intent);
+                            }else if(s.equalsIgnoreCase("GHF0180TABLAMP")){
+                                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                                HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                                hashMap.put("prodName", "Premium Table Lamp");
+                                hashMap.put("prodPrice", "65");
+                                hashMap.put("prodImg", R.drawable.tablelamp);
+                                hashMap.put("prodSFB", "tablelamp.sfb");
+                                SFBPojo.setSFBFile("tablelamp.sfb");
                                 Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
                                 intent.putExtra("map", hashMap);
                                 startActivity(intent);
