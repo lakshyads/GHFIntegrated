@@ -89,6 +89,7 @@ public class AlertDialogActivity extends Activity {
                 Intent act = new Intent(getApplicationContext(), MainActivity.class);
                 act.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 act.putExtra("fragment", "chatscreen");
+                act.putExtra("Operator","Hi There!, How can i help you today!!");
                 startActivity(act);
             }
         });

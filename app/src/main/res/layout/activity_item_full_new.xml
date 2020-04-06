@@ -63,7 +63,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="    MRP (₹) (Inc Taxes)"
+                    android:text="    MRP ($) (Inc Taxes)"
                     android:textColor="#000000"
                     android:textSize="15sp" />
 
@@ -74,7 +74,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="₹ 85000"
+                    android:text="$ 85000"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -95,7 +95,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="    Our Price (₹)"
+                    android:text="    Our Price ($)"
                     android:textColor="#000000"
                     android:textSize="15sp" />
 
@@ -106,7 +106,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="₹ 99999"
+                    android:text="$ 99999"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -214,7 +214,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/chatbubbleours"
                 android:padding="10dp"
-                android:text="John : Very good. Looks good inmy house"
+                android:text="John : Very good. Looks good in my house"
                 android:textColor="@color/ARWHITE" />
 
             <TextView

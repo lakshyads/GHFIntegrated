@@ -1,6 +1,5 @@
 package com.questpirates.greathomesfurniture;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -102,5 +101,3 @@ public class SendJavaEmail {
 
     }
 }
-
-

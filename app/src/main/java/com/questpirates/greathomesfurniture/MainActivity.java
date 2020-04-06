@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new HomeFragment());
                     setItemValue("tables");
                     break;
+                case "homecouch":
+                    loadFragment(new HomeFragment());
+                    setItemValue("couch");
+                    break;
                 case "chatscreen":
                     loadFragment(new AssistantFragment());
                     break;
@@ -332,7 +336,10 @@ public class MainActivity extends AppCompatActivity {
                 loadFragment(new HomeFragment());
                 setItemValue("tables");
                 break;
-
+            case "homecouch":
+                loadFragment(new HomeFragment());
+                setItemValue("couch");
+                break;
             case "chatscreen":
                 loadFragment(new AssistantFragment());
                 break;

@@ -47,6 +47,7 @@ public class SocketService extends Service {
     public static final String BROADCAST_MAINCHAIRS = "MCHAIRS";
     public static final String BROADCAST_MAINDESKS = "MDESKS";
     public static final String BROADCAST_MAINTABLES = "MTABLES";
+    public static final String BROADCAST_MAINCOUCH = "MCOUCH";
     private Socket socket;
     private ActivityManager am;
     private ComponentName cn;
@@ -252,6 +253,19 @@ public class SocketService extends Service {
                                 }
                                 // emit
                                 break;
+                            case "show couch": //Main Activity - Home Fragement - tables tab
+                                if ((!cn.getShortClassName().equalsIgnoreCase(".MainActivity"))) {
+                                    Intent act = new Intent(getApplicationContext(), MainActivity.class);
+                                    act.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    act.putExtra("fragment", "homecouch");
+                                    startActivity(act);
+                                } else {
+                                    i = new Intent(BROADCAST_MAINCOUCH);
+                                    i.putExtra("fragment", "homecouch");
+                                    sendBroadcast(i);
+                                }
+                                // emit
+                                break;
 
                             case "show this in ar": //Main Activity - Home Fragement - tables tab
                                 if ((!cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
@@ -265,17 +279,22 @@ public class SocketService extends Service {
                                 if ((cn.getShortClassName().equalsIgnoreCase(".ItemFullActivity")) ||
                                         (cn.getShortClassName().equalsIgnoreCase(".ARMainActivity"))) {
 
-                                    Intent dialogIntent = new Intent(getApplicationContext(), AlertDialogActivity.class);
-                                    getApplication().startActivity(dialogIntent);
+                                    try {
+                                        Intent dialogIntent = new Intent(getApplicationContext(), AlertDialogActivity.class);
+                                        dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        getApplication().startActivity(dialogIntent);
 
-                                    SendJavaEmail sendJavaEmail = new SendJavaEmail(
-                                            "manjunath189@gmail.com"
-//                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com"
-                                            ,
-                                            "GHF Support",
-                                            "",
-                                            "");
-                                    sendJavaEmail.sendEmail();
+                                        SendJavaEmail sendJavaEmail = new SendJavaEmail(
+                                                "manjunath189@gmail.com"
+    //                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com"
+                                                ,
+                                                "GHF Support",
+                                                "",
+                                                "");
+                                        sendJavaEmail.sendEmail();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
                                     //showCustomPopupMenu();
                                 }
