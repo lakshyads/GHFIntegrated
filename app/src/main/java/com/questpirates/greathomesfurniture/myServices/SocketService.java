@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -285,8 +284,13 @@ public class SocketService extends Service {
                                         getApplication().startActivity(dialogIntent);
 
                                         SendJavaEmail sendJavaEmail = new SendJavaEmail(
-                                                "manjunath189@gmail.com"
-    //                                            "hardeep.singh10@wipro.com,manjunath.prabhakar@wipro.com,kishore.kumar35@wipro.com,lakshya.singh@wipro.com,sudhanshu.raj@wipro.com"
+                                                "manjunath189@gmail.com," +
+                                                        "lakshyadev@live.com," +
+                                                        "hardeep.singh10@wipro.com," +
+                                                        "manjunath.prabhakar@wipro.com," +
+                                                        "kishore.kumar35@wipro.com," +
+                                                        "lakshya.singh@wipro.com," +
+                                                        "sudhanshu.raj@wipro.com"
                                                 ,
                                                 "GHF Support",
                                                 "",
