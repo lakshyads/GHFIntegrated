@@ -35,6 +35,7 @@ public class ScanQRActivity extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     SurfaceView surfaceView;
+    boolean OPENED = false;
 
 
     @Override
@@ -57,8 +58,6 @@ public class ScanQRActivity extends AppCompatActivity {
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(actionBarLayout, layoutParams);
         actionTV.setText("QR VISION.");
-
-
 
 
         surfaceView = findViewById(R.id.qr_camera_view);
@@ -115,7 +114,8 @@ public class ScanQRActivity extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),"BARCODE SIZE : "+ barcodes.size(),Toast.LENGTH_LONG).show();
 
                 //String str = "nulll";
-                if (barcodes.size() != 0) {
+                if (barcodes.size() != 0 && !OPENED) {
+                    OPENED = true;
                     playBeepforPass();
 
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -123,7 +123,7 @@ public class ScanQRActivity extends AppCompatActivity {
                         public void run() {
                             String s = barcodes.valueAt(0).displayValue;
                             Log.e("BARCODE VALUE", "" + s);
-                            if(s.equalsIgnoreCase("GHF0123PCOUCH")){
+                            if (s.equalsIgnoreCase("GHF0123PCOUCH")) {
                                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                                 HashMap<String, Object> hashMap = new HashMap<String, Object>();
                                 hashMap.put("prodName", "Royal Padded Couch");
@@ -133,8 +133,9 @@ public class ScanQRActivity extends AppCompatActivity {
                                 SFBPojo.setSFBFile("padded_couch.sfb");
                                 Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
                                 intent.putExtra("map", hashMap);
+                                finish();
                                 startActivity(intent);
-                                }else if(s.equalsIgnoreCase("GHF0124CDESK")){
+                            } else if (s.equalsIgnoreCase("GHF0124CDESK")) {
                                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                                 HashMap<String, Object> hashMap = new HashMap<String, Object>();
                                 hashMap.put("prodName", "Computer Desk");
@@ -144,8 +145,9 @@ public class ScanQRActivity extends AppCompatActivity {
                                 SFBPojo.setSFBFile("computer_desk.sfb");
                                 Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
                                 intent.putExtra("map", hashMap);
+                                finish();
                                 startActivity(intent);
-                            }else if(s.equalsIgnoreCase("GHF0180TABLAMP")){
+                            } else if (s.equalsIgnoreCase("GHF0180TABLAMP")) {
                                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                                 HashMap<String, Object> hashMap = new HashMap<String, Object>();
                                 hashMap.put("prodName", "Premium Table Lamp");
@@ -155,12 +157,14 @@ public class ScanQRActivity extends AppCompatActivity {
                                 SFBPojo.setSFBFile("tablelamp.sfb");
                                 Intent intent = new Intent(getApplicationContext(), ItemFullActivity.class);
                                 intent.putExtra("map", hashMap);
+                                finish();
                                 startActivity(intent);
-                            }else{
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Item not available", Toast.LENGTH_LONG).show();
                             }
 
                             cameraSource.stop();
+                            barcodeDetector.release();
                         }
                     });
                 }
@@ -173,12 +177,12 @@ public class ScanQRActivity extends AppCompatActivity {
 
     }
 
-    public void startpassCamera(){
+    public void startpassCamera() {
         try {
             cameraSource.start(surfaceView.getHolder());
         } catch (SecurityException ie) {
             Log.e("CAMERA PERMISSION", ie.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("CAMERA SOURCE IO", e.getMessage());
         }
     }
@@ -217,7 +221,6 @@ public class ScanQRActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
 
 }

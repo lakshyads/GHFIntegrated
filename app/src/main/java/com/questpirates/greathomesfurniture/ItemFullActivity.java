@@ -42,12 +42,6 @@ public class ItemFullActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_full_new);
         ContextPojo.setContext(getApplicationContext());
 
-        int indexRand = new Random().nextInt(7 - 0) + 0;
-        ;
-
-        prodData = getRandomProductInfo(indexRand).replaceAll("@","");
-        warData = getRandomWarrentyInfo(indexRand);
-        prodDataBackend = getRandomProductInfo(indexRand).split("@")[0] + "You can ask me to show this in ar to visualize products in your home.";
 
 
         tvProdName = findViewById(R.id.prodname);
@@ -65,6 +59,16 @@ public class ItemFullActivity extends AppCompatActivity {
         String prodPrice = (String) hashMap.get("prodPrice");
         int prodImg = (int) hashMap.get("prodImg");
         String prodSFB = (String) hashMap.get("prodSFB");
+
+        int indexRand = new Random().nextInt(7 - 0) + 0;
+        ;
+
+        prodData = getRandomProductInfo(indexRand).replaceAll("@","");
+        warData = getRandomWarrentyInfo(indexRand);
+        prodDataBackend = getRandomProductInfo(indexRand).split("@")[0] + "You can ask me to show this in ar to visualize products in your home.";
+
+        Log.d("INFO", "prodData: " + prodData);
+        Log.d("INFO", "prodDataBackend: " + prodDataBackend);
 
         JSONObject res = ItemFullActivity.getCommonJSON(prodDataBackend, warData, prodPrice);
         Socket socket = SocketPojo.getSocket();
@@ -185,5 +189,15 @@ public class ItemFullActivity extends AppCompatActivity {
         return warInfo.get(index);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishActivity(0);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finishActivity(0);
+    }
 }
