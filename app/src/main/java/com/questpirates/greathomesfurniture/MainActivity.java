@@ -367,5 +367,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAIN));
         registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAINCHAIRS));
         registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAINDESKS));
+        registerReceiver(broadcastReceiverM, new IntentFilter(SocketService.BROADCAST_MAINCOUCH));
     }
 }

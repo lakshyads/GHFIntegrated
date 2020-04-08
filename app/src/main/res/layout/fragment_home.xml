@@ -68,6 +68,16 @@
                     android:textSize="40sp" />
 
                 <TextView
+                    android:id="@+id/txtcouch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/coolvetica"
+                    android:padding="15dp"
+                    android:text="Couch"
+                    android:textColor="#D5D1D1"
+                    android:textSize="40sp" />
+
+                <TextView
                     android:id="@+id/txtdesks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,15 +97,7 @@
                     android:textColor="#D5D1D1"
                     android:textSize="40sp" />
 
-                <TextView
-                    android:id="@+id/txtcouch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/coolvetica"
-                    android:padding="15dp"
-                    android:text="Couch"
-                    android:textColor="#D5D1D1"
-                    android:textSize="40sp" />
+
 
                 <TextView
                     android:id="@+id/txtbeds"

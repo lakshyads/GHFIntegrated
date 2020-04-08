@@ -124,6 +124,30 @@ sceneform.asset('sampledata/Couch/wide_sofa/wide_sofa/wide_sofa.obj',
         'sampledata/Couch/wide_sofa/wide_sofa/wide_sofa.sfa',
         'src/main/assets/wide_sofa')
 
+// royal_sofa
+sceneform.asset('sampledata/Couch/royal_sofa/royal_sofa.obj',
+        'default',
+        'sampledata/Couch/royal_sofa/royal_sofa.sfa',
+        'src/main/assets/royal_sofa')
+
+// sofa_chair
+sceneform.asset('sampledata/Couch/sofa_chair/sofa_chair.obj',
+        'default',
+        'sampledata/Couch/sofa_chair/sofa_chair.sfa',
+        'src/main/assets/sofa_chair')
+
+// ottoman_sofa
+sceneform.asset('sampledata/Couch/ottoman_sofa/ottoman_sofa.obj',
+        'default',
+        'sampledata/Couch/ottoman_sofa/ottoman_sofa.sfa',
+        'src/main/assets/ottoman_sofa')
+
+// vintage_sofa
+sceneform.asset('sampledata/Couch/vintage_sofa/vintage_sofa.obj',
+        'default',
+        'sampledata/Couch/vintage_sofa/vintage_sofa.sfa',
+        'src/main/assets/vintage_sofa')
+
 /* DESKS */
 // computer_desk
 sceneform.asset('sampledata/Desks/computer_desk/computer_desk/computer_desk.obj',

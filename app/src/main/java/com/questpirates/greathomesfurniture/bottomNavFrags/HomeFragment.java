@@ -100,9 +100,10 @@ public class HomeFragment extends Fragment {
         tvcouch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAllTxtViewGray();
-                popHomeRecycle(new SomeData().Couchproducts, view);
-                tvcouch.setTextColor(Color.parseColor("#000000"));
+//                setAllTxtViewGray();
+//                popHomeRecycle(new SomeData().Couchproducts, view);
+//                tvcouch.setTextColor(Color.parseColor("#000000"));
+                changeTabs(view,"couch");
             }
         });
         tvothers.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +162,10 @@ public class HomeFragment extends Fragment {
                 setAllTxtViewGray();
                 popHomeRecycle(new SomeData().Tableproducts, view);
                 tvtables.setTextColor(Color.parseColor("#000000"));
+            case "couch" :
+                setAllTxtViewGray();
+                popHomeRecycle(new SomeData().Couchproducts, view);
+                tvcouch.setTextColor(Color.parseColor("#000000"));
         }
     }
 

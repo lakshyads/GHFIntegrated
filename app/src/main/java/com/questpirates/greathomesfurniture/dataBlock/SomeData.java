@@ -32,6 +32,11 @@ public class SomeData {
         Couchproducts.put("Home Style Sofa@800@padded_sofa@padded_sofa.sfb", R.drawable.padded_sofa);
         Couchproducts.put("EveryHomes Wide Sofa@999@wide_sofa@wide_sofa.sfb", R.drawable.wide_sofa);
 
+        Couchproducts.put("Ottoman Royal White Pearl Sofa@699@ottoman_sofa@ottoman_sofa.sfb", R.drawable.ottoman2);
+        Couchproducts.put("EveryHomes King Sofa@799@royal_sofa@royal_sofa.sfb", R.drawable.royal_sofa);
+        Couchproducts.put("Vintage Sofa@999@vintage_sofa@vintage_sofa.sfb", R.drawable.vintage_sofa);
+        Couchproducts.put("The New Sofa Chair@999@sofa_chair@sofa_chair.sfb", R.drawable.sofa_chair);
+
         //Tables
         Tableproducts.put("Clarie Wooden Table@130@wooden_table@wooden_table.sfb", R.drawable.wooden_table);
         Tableproducts.put("Royal Pearl White Table@150@white_table@white_table.sfb", R.drawable.white_table);
