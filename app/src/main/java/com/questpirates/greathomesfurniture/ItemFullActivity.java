@@ -33,6 +33,7 @@ import java.util.Random;
 public class ItemFullActivity extends AppCompatActivity {
 
     TextView tvProdName, tvProdPrice, tvMRP, proddetails, warrentydetails;
+    TextView tvblue, tvbrown, tvblack, tvgray, tvred, tvgreen;
     ImageView imgProd, imgAR;
     String prodData, warData, prodDataBackend, warDatabackend;
 
@@ -134,6 +135,8 @@ public class ItemFullActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
 
 
     }

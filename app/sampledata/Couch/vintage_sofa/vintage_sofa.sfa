@@ -63,7 +63,7 @@
     file: 'sampledata/Couch/vintage_sofa/vintage_sofa.obj',
     name: 'vintage_sofa',
     recenter: 'root',
-    scale: 0.004202,
+    scale: 0.003202,
   },
   version: '0.54:2',
 }

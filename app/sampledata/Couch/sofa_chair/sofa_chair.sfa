@@ -37,7 +37,7 @@
     file: 'sampledata/Couch/sofa_chair/sofa_chair.obj',
     name: 'sofa_chair',
     recenter: 'root',
-    scale: 0.0001245,
+    scale: 0.001245,
   },
   version: '0.54:2',
 }

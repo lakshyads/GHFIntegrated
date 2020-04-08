@@ -157,36 +157,42 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/arbluecolor"
                     android:background="@color/ARBLUE" />
 
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/arbluebrown"
                     android:background="@color/ARBROWN" />
 
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/arblackcolor"
                     android:background="@color/ARBLACK" />
 
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/argraycolor"
                     android:background="@color/ARGRAY" />
 
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/arredcolor"
                     android:background="@color/ARRED" />
 
                 <RelativeLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/argreencolor"
                     android:background="@color/ARGREEN" />
 
 

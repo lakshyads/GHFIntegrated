@@ -115,7 +115,7 @@
     file: 'sampledata/Couch/royal_sofa/royal_sofa.obj',
     name: 'royal_sofa',
     recenter: 'root',
-    scale: 0.013894999999999999,
+    scale: 0.01894999999999999,
   },
   version: '0.54:2',
 }

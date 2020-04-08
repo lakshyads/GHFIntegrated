@@ -55,14 +55,14 @@ public class ARMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_r_main);
 
-        // Color change button
-        Button colorBtn = findViewById(R.id.colorBtn);
-        colorBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColorEvent("blue");
-            }
-        });
+//        // Color change button
+//        Button colorBtn = findViewById(R.id.colorBtn);
+//        colorBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changeColorEvent("blue");
+//            }
+//        });
 
        /* // Instantiate socket connection
         try {
